@@ -38,3 +38,23 @@ Tests
 (3) /api/articles/:article_id completed
 
 (4) /api/articles completed
+
+(5) /api/articles/:article_id/comments completed
+
+
+
+Test note:
+          /*
+          This is a note for me to remember how to use this in the future!
+          
+          The new date converts the 'created at' string into a date object, additionally, the .getTime() 
+          method converts the date object into a numeric timestamp. 
+
+          toBeGreaterThanOrEqual(): This Jest matcher checks if the first comment's timestamp (most recent) 
+          is greater than or equal to the last comment's timestamp (oldest). In other words, it ensures that 
+          the comments are sorted in descending order, with the most recent one first. 
+
+          The comments[0] piece of code fetches the first created_at property at the start of the array, 
+          moreover, the comments[comments.length - 1] code gets the property of the last comment in the 
+          comments array. 
+         */
