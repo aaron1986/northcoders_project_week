@@ -62,14 +62,14 @@ describe("GET /api", () => {
       });
   });
 
- /*  test("404: Responds with an error if the article_id does not exist", () => {
+ test("404: Responds with an error if the article_id does not exist", () => {
     return request(app)
       .get("/api/articles/212") 
       .expect(404)
       .then(({ body }) => {
         expect(body.msg).toBe("Article not found");
       });
-  }); */
+  }); 
 
   test("200: Responds with an array of article objects", () => {
     return request(app)
@@ -97,6 +97,5 @@ describe("GET /api", () => {
         });
       });
   });
-
 
 }); //end of description
