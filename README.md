@@ -34,3 +34,7 @@ Tests
 (1) CORE: GET /api test complete
 
 (2) GET /api/topics test completed
+
+(3) /api/articles/:article_id completed
+
+(4) /api/articles completed

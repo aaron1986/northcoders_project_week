@@ -20,7 +20,7 @@ exports.getTopics = async (req, res) => {
       selectArticleById(article_id) 
         .then((article) => {
           if (!article) {
-            return Promise.reject({ status: 404, msg: "Article not found" });
+            res.status(404).send({ msg: "Article not found" });
           }
           res.status(200).send({ article }); 
         })
