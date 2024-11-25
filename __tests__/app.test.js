@@ -11,7 +11,8 @@ beforeEach(() => seed(data))
 
 afterAll(() => db.end());
 
-describe("GET /api", () => {
+//task 2 test
+describe("All GET /api Tests", () => {
   test("200: Responds with an object detailing the documentation for each endpoint", () => {
     return request(app)
       .get("/api")
@@ -21,6 +22,7 @@ describe("GET /api", () => {
       });
   });
 
+  //task 3 test
   test("200: Responds with an array of topic objects with 'slug' and 'description' properties", () => {
     return request(app)
       .get("/api/topics")
@@ -41,6 +43,7 @@ describe("GET /api", () => {
 
     });
 
+    //task 4 tests
     test("GET article by Id: /api/articles/:article_id", () => {
       return request(app)
       .get("/api/articles/1")
@@ -71,6 +74,7 @@ describe("GET /api", () => {
       });
   }); 
 
+  //task 5 test
   test("200: Responds with an array of article objects", () => {
     return request(app)
       .get("/api/articles")
@@ -97,5 +101,48 @@ describe("GET /api", () => {
         });
       });
   });
+
+  //task 6 tests
+    test("200: Responds with an array of comments for the given article_id, sorted by most recent", () => {
+      return request(app)
+        .get("/api/articles/1/comments")
+        .expect(200)
+        .then(({ body }) => {
+          const { comments } = body;
+    
+          expect(comments).toBeInstanceOf(Array);
+          expect(comments.length).toBeGreaterThan(0);
+    
+          comments.forEach((comment) => {
+            expect(comment).toEqual(
+              expect.objectContaining({
+                comment_id: expect.any(Number),
+                votes: expect.any(Number),
+                created_at: expect.any(String),
+                author: expect.any(String),
+                body: expect.any(String),
+                article_id: expect.any(Number),
+              })
+            );
+          });
+          expect(new Date(comments[0].created_at).getTime()).toBeGreaterThanOrEqual(
+            new Date(comments[comments.length - 1].created_at).getTime()
+          );
+          /*
+          Please see README.md file for explanation of line 129 code. 
+          */
+        });
+    });
+ 
+
+  test("404: Responds with an error when given a non-existent article_id", () => {
+    return request(app)
+      .get("/api/articles/2121/comments")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("No comments found for this article");
+      });
+  });
+
 
 }); //end of description

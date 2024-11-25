@@ -40,3 +40,22 @@ exports.selectArticleById = (article_id) => {
     const { rows } = await db.query(query);
     return rows;
   };
+
+
+  exports.selectComments = async (article_id) => {
+    const query = `
+      SELECT 
+        comment_id, 
+        votes, 
+        created_at, 
+        author, 
+        body, 
+        article_id
+      FROM comments
+      WHERE article_id = $1
+      ORDER BY created_at DESC;
+    `;
+  
+    const { rows } = await db.query(query, [article_id]);
+    return rows;
+  };
