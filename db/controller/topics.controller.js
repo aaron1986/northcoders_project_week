@@ -1,5 +1,5 @@
 const endpointsJson = require("../../endpoints.json");
-const {selectTopics} = require('../model/topics.model')
+const {selectTopics, selectArticleById, selectAllArticles} = require('../model/topics.model')
 
 exports.getApi = (req, res) => {
     res.status(200).send({ endpoints: endpointsJson }); 
@@ -13,3 +13,28 @@ exports.getTopics = async (req, res) => {
         console.log(err)
     }
 }
+
+  exports.getArticleById = async (req, res, next) => {
+    try {
+      const { article_id } = req.params; 
+      selectArticleById(article_id) 
+        .then((article) => {
+          if (!article) {
+            return Promise.reject({ status: 404, msg: "Article not found" });
+          }
+          res.status(200).send({ article }); 
+        })
+        .catch(next); 
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  exports.getArticles = async (req, res, next) => {
+    try {
+      const articles = await selectAllArticles();
+      res.status(200).send({ articles });
+    } catch (err) {
+      next(err);
+    }
+  };
