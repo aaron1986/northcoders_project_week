@@ -5,7 +5,8 @@ const {
     selectAllArticles, 
     selectComments, 
     insertCommentByArticleId,
-    updateArticleById
+    updateArticleById,
+    deleteCommentsById,
   
   } = require('../model/topics.model')
 
@@ -124,4 +125,20 @@ exports.patchArticle = async (req, res, next) => {
   }
 };
 
+
+exports.deleteComment = async (req, res, next) => {
+  try {
+    const { comment_id } = req.params;
+    if (isNaN(comment_id)) {
+      return res.status(400).send({ message: "bad request" });
+    }
+    const deleteComments = await deleteCommentsById(comment_id);
+    if (!deleteComments) {
+      return res.status(400).send({ message: "bad request" });
+    }
+    res.status(204).send({ comment: deleteComments });
+  } catch(err) {
+    next(err);
+  }
+}
 

@@ -85,3 +85,13 @@ exports.updateArticleById = async (article_id, newVotes) => {
   const { rows } = await db.query(sqlQuery, [newVotes, article_id]);
   return rows[0];
 };
+
+exports.deleteCommentsById = async(comment_id) => {
+  const deleteQuery = `
+  DELETE FROM comments
+  WHERE comment_id = $1 
+  RETURNING *;
+`;
+const {rows} = await db.query(deleteQuery, [comment_id])
+return rows[0]
+}
