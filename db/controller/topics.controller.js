@@ -4,7 +4,10 @@ const {
     selectArticleById, 
     selectAllArticles, 
     selectComments, 
-    insertCommentByArticleId} = require('../model/topics.model')
+    insertCommentByArticleId,
+    updateArticleById
+  
+  } = require('../model/topics.model')
 
 exports.getApi = (req, res) => {
     res.status(200).send({ endpoints: endpointsJson }); 
@@ -98,6 +101,27 @@ exports.getTopics = async (req, res) => {
    } catch(err) {
     console.log(err)
    }
+};
+
+exports.patchArticle = async (req, res, next) => {
+  try {
+    const { article_id } = req.params;
+    const { inc_votes } = req.body;
+
+    if (!inc_votes || typeof inc_votes !== 'number') {
+      return res.status(400).send({ message: "bad request" });
+    }
+
+    const updatedArticle = await updateArticleById(article_id, inc_votes);
+
+    if (!updatedArticle) {
+      return res.status(404).send({ message: "article not found" });
+    }
+
+    res.status(200).send({ article: updatedArticle });
+  } catch (err) {
+    next(err);
+  }
 };
 
 
