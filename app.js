@@ -8,6 +8,7 @@ const {
     getComments, 
     postComment,
     patchArticle,
+    deleteComment,
 } = require('./db/controller/topics.controller')
     
 const app = express()
@@ -26,6 +27,9 @@ app.post('/api/articles/:article_id/comments', postComment)
 
 //PATCH article id
 app.patch("/api/articles/:article_id", patchArticle)
+
+//DELETE 
+app.delete('/api/comments/:comment_id', deleteComment)
 
 
 module.exports = app

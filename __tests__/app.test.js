@@ -233,6 +233,19 @@ describe("All GET /api Tests", () => {
     });
   });
   
- 
+  describe("DELETE /api/comments/:comment_id", () => {
+    test("status: 204 - delete the given comment by comment_id", () => {
+        return request(app).delete("/api/comments/1").expect(204)
+    })
+    test("status: 400 - responds with 'bad request' for invalid comment_id", () => {
+      return request(app)
+        .delete("/api/comments/not-an-id")
+        .expect(400)
+        .then(({ body }) => {
+          expect(body.message).toBe("bad request");
+        });
+    });
+
+  })
   
 }); //end of description
