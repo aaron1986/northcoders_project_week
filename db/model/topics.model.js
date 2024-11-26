@@ -1,9 +1,9 @@
 const db = require("../../db/connection");
 
+
 exports.selectTopics = async () => {
     let sqlQuery = `SELECT * FROM topics;`
-    const values = [];
-    return db.query(sqlQuery, values).then(({rows}) => {
+    return db.query(sqlQuery).then(({rows}) => {
         return rows
     })
 
@@ -58,4 +58,18 @@ exports.selectArticleById = (article_id) => {
   
     const { rows } = await db.query(query, [article_id]);
     return rows;
+  };
+
+
+  //POST COMMENTS
+  exports.insertCommentByArticleId = async (article_id, username, body) => {
+    const queryStr = `
+        INSERT INTO comments
+            (body, author, article_id)
+        VALUES ($1, $2, $3)
+        RETURNING *;`
+
+    return db.query(queryStr, [body, username, article_id]).then(({ rows }) => {
+        return rows[0]
+    })
   };
