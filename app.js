@@ -7,6 +7,7 @@ const {
     getArticles, 
     getComments, 
     postComment,
+    patchArticle,
 } = require('./db/controller/topics.controller')
     
 const app = express()
@@ -23,6 +24,8 @@ app.get("/api/articles/:article_id/comments", getComments)
 //POST api and endPoints
 app.post('/api/articles/:article_id/comments', postComment)
 
+//PATCH article id
+app.patch("/api/articles/:article_id", patchArticle)
 
 
 module.exports = app

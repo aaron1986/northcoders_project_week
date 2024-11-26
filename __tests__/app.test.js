@@ -184,9 +184,55 @@ describe("All GET /api Tests", () => {
                 expect(body.message).toBe("Username is required")
             })
     })
-   
-  })// end of POST test description 
+}) 
 
+   //tasks 8
+   describe("PATCH /api/articles/:article_id", () => {
+    test("status: 200 - updates the votes property of the article and responds with the updated article", () => {
+      const patchData = { inc_votes: 5 };
+      return request(app)
+        .patch("/api/articles/1")
+        .send(patchData)
+        .expect(200)
+        .then(({ body }) => {
+          const { article } = body;
+          expect(typeof article).toBe("object");
+          expect(article).toMatchObject({
+            article_id: 1,
+            title: expect.any(String),
+            body: expect.any(String),
+            votes: expect.any(Number),
+            author: expect.any(String),
+            topic: expect.any(String),
+            created_at: expect.any(String),
+          });
+          expect(article.votes).toBe(105); 
+        });
+    });
+  
+    test("status: 400 - bad request when inc_votes is not provided or invalid", () => {
+      const invalidPatchData = {};
+      return request(app)
+        .patch("/api/articles/1")
+        .send(invalidPatchData)
+        .expect(400)
+        .then(({ body }) => {
+          expect(body.message).toBe("bad request");
+        });
+    });
+  
+    test("status: 404 - responds with an error when article_id does not exist", () => {
+      const patchData = { inc_votes: 5 };
+      return request(app)
+        .patch("/api/articles/9999") 
+        .send(patchData)
+        .expect(404)
+        .then(({ body }) => {
+          expect(body.message).toBe("article not found");
+        });
+    });
+  });
+  
  
   
 }); //end of description

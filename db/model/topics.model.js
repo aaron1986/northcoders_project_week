@@ -73,3 +73,15 @@ exports.selectArticleById = (article_id) => {
         return rows[0]
     })
   };
+
+  //Patch article_id
+exports.updateArticleById = async (article_id, newVotes) => {
+  const sqlQuery = `
+    UPDATE articles 
+    SET votes = votes + $1 
+    WHERE article_id = $2 
+    RETURNING *;
+  `;
+  const { rows } = await db.query(sqlQuery, [newVotes, article_id]);
+  return rows[0];
+};
