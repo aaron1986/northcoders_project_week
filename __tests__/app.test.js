@@ -233,6 +233,7 @@ describe("All GET /api Tests", () => {
     });
   });
   
+  //task 9
   describe("DELETE /api/comments/:comment_id", () => {
     test("status: 204 - delete the given comment by comment_id", () => {
         return request(app).delete("/api/comments/1").expect(204)
@@ -247,5 +248,30 @@ describe("All GET /api Tests", () => {
     });
 
   })
-  
+
+  //task 10
+  describe("GET /api/users", () => {
+    test("responds with an array of user objects, each containing username, name, and avatar_url", () => {
+      return request(app)
+        .get("/api/users")
+        .expect(200)
+        .then(({ body }) => {
+          const { users } = body;
+          expect(Array.isArray(users)).toBe(true);
+          users.forEach((user) => {
+            expect(user).toEqual(
+              expect.objectContaining({
+                username: expect.any(String),
+                name: expect.any(String),
+                avatar_url: expect.any(String),
+              })
+            );
+          });
+        });
+    });
+
+    test("endpoint is available at /api/users", () => {
+      return request(app).get("/api/users").expect(200);
+    });
+  });
 }); //end of description

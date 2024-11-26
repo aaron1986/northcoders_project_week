@@ -95,3 +95,13 @@ exports.deleteCommentsById = async(comment_id) => {
 const {rows} = await db.query(deleteQuery, [comment_id])
 return rows[0]
 }
+
+exports.selectAllUsers = async () => {
+  const usersQuery = `
+    SELECT username, name, avatar_url
+    FROM users;
+  `;
+
+  const { rows } = await db.query(usersQuery);
+  return rows;
+};

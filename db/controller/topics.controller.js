@@ -7,6 +7,7 @@ const {
     insertCommentByArticleId,
     updateArticleById,
     deleteCommentsById,
+    selectAllUsers,
   
   } = require('../model/topics.model')
 
@@ -142,3 +143,14 @@ exports.deleteComment = async (req, res, next) => {
   }
 }
 
+exports.getUsers = async(req, res, next) => {
+  try {
+    const users = await selectAllUsers();
+    if (users.length === 0) {
+      return res.status(404).send({ msg: "No users found" });
+    }
+      res.status(200).send({ users });
+  } catch(err) {
+    next(err)
+  }
+}
