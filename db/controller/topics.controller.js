@@ -1,5 +1,10 @@
 const endpointsJson = require("../../endpoints.json");
-const {selectTopics, selectArticleById, selectAllArticles, selectComments} = require('../model/topics.model')
+const {
+    selectTopics, 
+    selectArticleById, 
+    selectAllArticles, 
+    selectComments, 
+    insertCommentByArticleId} = require('../model/topics.model')
 
 exports.getApi = (req, res) => {
     res.status(200).send({ endpoints: endpointsJson }); 
@@ -52,3 +57,47 @@ exports.getTopics = async (req, res) => {
       next(err);
     }
   };
+
+
+  exports.postComment = async (req, res, next) => {
+    try {
+      const { article_id } = req.params
+      const { username, body } = req.body
+      insertCommentByArticleId(article_id, username, body)
+          .then((comment) => {
+              res.status(201).send({ comment })
+          })
+          .catch((err) => {
+              next(err)
+          })
+    } catch (err) {
+        if (err.code === "23503") {
+            res.status(404).send({ msg: "User not found" });
+        } else if (err.code === "22P02") {
+            res.status(400).send({ msg: "Invalid article_id format" });
+        } else {
+            next(err);
+        }
+    }
+};
+
+  exports.postComment = async (req, res, next) => {
+   try {
+    const { article_id } = req.params
+    const { username, body } = req.body
+    if (!username) {
+      return res.status(400).send({ message: "Username is required" });
+  }
+    insertCommentByArticleId(article_id, username, body)
+        .then((comment) => {
+            res.status(201).send({ comment })
+        })
+        .catch((err) => {
+            next(err)
+        })
+   } catch(err) {
+    console.log(err)
+   }
+};
+
+

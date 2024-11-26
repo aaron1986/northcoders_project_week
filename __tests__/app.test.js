@@ -144,5 +144,49 @@ describe("All GET /api Tests", () => {
       });
   });
 
+  //POST TEST
+  //task 7
+  describe("POST /api/articles/:article_id/comments", () => {
+    test("status: 201 - should respond with the posted comment", () => {
+        const testComment = {
+            username: "butter_bridge",
+            body: "a new comment",
+        }
+        return request(app)
+            .post("/api/articles/11/comments")
+            .send(testComment)
+            .expect(201)
+            .then(({ body }) => {
+                const { comment } = body
 
+                expect(typeof comment).toBe("object")
+                expect(Object.keys(comment)).toHaveLength(6)
+                expect(comment).toMatchObject({
+                    comment_id: 19,
+                    body: expect.any(String),
+                    article_id: expect.any(Number),
+                    author: expect.any(String),
+                    votes: expect.any(Number),
+                    created_at: expect.any(String),
+                })
+            })
+      })
+
+      test("status: 400 - should respond with an error if username is missing", () => {
+        const testComment = {
+            body: "a comment without a username",
+        }
+        return request(app)
+            .post("/api/articles/11/comments")
+            .send(testComment)
+            .expect(400)
+            .then(({ body }) => {
+                expect(body.message).toBe("Username is required")
+            })
+    })
+   
+  })// end of POST test description 
+
+ 
+  
 }); //end of description
