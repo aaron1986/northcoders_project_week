@@ -360,5 +360,39 @@ describe("GET /api/articles (sorting queries)", () => {
       });
   });
 })
+
+//task 12
+describe("GET /api/articles (with topic query)", () => {
+  test("200: filters articles by the given topic", () => {
+    return request(app)
+      .get("/api/articles?topic=mitch")
+      .expect(200)
+      .then(({ body: { articles } }) => {
+        expect(articles).toBeInstanceOf(Array);
+        articles.forEach((article) => {
+          expect(article.topic).toBe("mitch");
+        });
+      });
+  });
+
+  test("200: responds with all articles when no topic query is provided", () => {
+    return request(app)
+      .get("/api/articles")
+      .expect(200)
+      .then(({ body: { articles } }) => {
+        expect(articles).toBeInstanceOf(Array);
+        expect(articles.length).toBeGreaterThan(0);
+      });
+  });
+
+  test("404: responds with an error if the topic doesn't exist", () => {
+    return request(app)
+      .get("/api/articles?topic=nonexistent")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Topic not found");
+      });
+  });
+});
   
 }); //end of description

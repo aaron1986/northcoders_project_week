@@ -20,7 +20,7 @@ exports.selectArticleById = (article_id) => {
       .then(({ rows }) => rows[0]); 
   }; //end of selectArticleById function
     
-  exports.selectAllArticles = async ({ sort_by = "created_at", order = "desc" }) => {
+  exports.selectAllArticles = async ({ sort_by = "created_at", order = "desc", topic }) => {
     const validSortBy = ["author", "title", "article_id", "topic", "created_at", "votes", "article_img_url", "comment_count"];
     const validOrder = ["asc", "desc"];
   
@@ -32,7 +32,7 @@ exports.selectArticleById = (article_id) => {
       throw { status: 400, msg: "Invalid order query" };
     }
   
-    const query = `
+    let query = `
       SELECT 
         articles.author, 
         articles.title, 
@@ -44,14 +44,30 @@ exports.selectArticleById = (article_id) => {
         COUNT(comments.comment_id)::INT AS comment_count
       FROM articles
       LEFT JOIN comments ON articles.article_id = comments.article_id
+    `;
+    
+    const queryParams = [];
+    
+    if (topic) {
+      query += ` WHERE articles.topic = $1`;
+      queryParams.push(topic);
+    }
+    
+    query += `
       GROUP BY articles.article_id
       ORDER BY ${sort_by} ${order};
     `;
-  
-    const { rows } = await db.query(query);
+    if (topic) {
+      const { rows: topicRows } = await db.query("SELECT * FROM topics WHERE slug = $1", [topic]);
+      if (topicRows.length === 0) {
+        throw { status: 404, msg: "Topic not found" };
+      }
+    }
+    
+    const { rows } = await db.query(query, queryParams);
     return rows;
   };
-
+  
 
   exports.selectComments = async (article_id) => {
     const query = `
