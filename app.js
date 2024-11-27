@@ -35,4 +35,19 @@ app.patch("/api/articles/:article_id", patchArticle)
 app.delete('/api/comments/:comment_id', deleteComment)
 
 
+//********************************************
+
+//example for postman
+app.get("/test", async (req, res) => {
+    res.json({ message: "pass!" });
+  });
+
+//throw error if endpoint not found
+app.all("*", (req, res) => {
+    res.status(404).send({ msg: "Endpoint not found" });
+  });
+
+//*******************************
+
+
 module.exports = app

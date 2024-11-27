@@ -22,6 +22,17 @@ create and seed database
 (2) type 'npm run setup-dbs' in the terminal to create the database
 (3) type 'npm run seed' in the terminal to insert values into the tables
 
+Created listen.js file to view endpoints in POSTMAN
+(1) listen.js and added code to view endpoints on port 9000
+(2) added "start": "node listen.js" to scripts in the package.json file 
+(3) npm install npm install supertest --save-dev
+(4) run 'npm start'
+(5) http://localhost:9000/
+
+Created new test and error if endpoint not found in app.js
+(1) wrote app.get("/test") to check if endpoint working
+(2) I wrote app.all("*", (req, res)) to run error if endpoint not found
+
 Tests
 (1) CORE: GET /api test complete
 
