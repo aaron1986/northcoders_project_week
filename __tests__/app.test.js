@@ -273,5 +273,25 @@ describe("All GET /api Tests", () => {
     test("endpoint is available at /api/users", () => {
       return request(app).get("/api/users").expect(200);
     });
+     //testing endpoint
+  test("testing enpoints responds with a message", async () => {
+    const response = await request(app).get("/test");
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe("pass!");
   });
+
+  test("endpoint is available and responds to requests", async () => {
+    await request(app).get("/api/users").expect(200);
+  });
+
+  test("responds with a 404 if the endpoint does not exist", async () => {
+    const response = await request(app).get("/nonexistent-endpoint").expect(404);
+    expect(response.body.msg).toBe("Endpoint not found");
+  });
+
+});
+
+ 
+
+  
 }); //end of description
