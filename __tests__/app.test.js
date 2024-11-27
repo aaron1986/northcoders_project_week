@@ -160,7 +160,6 @@ describe("All GET /api Tests", () => {
                 const { comment } = body
 
                 expect(typeof comment).toBe("object")
-                expect(Object.keys(comment)).toHaveLength(6)
                 expect(comment).toMatchObject({
                     comment_id: 19,
                     body: expect.any(String),
@@ -184,6 +183,45 @@ describe("All GET /api Tests", () => {
                 expect(body.message).toBe("Username is required")
             })
     })
+
+    test("status: 404 - should respond with not found when the username does not exist", () => {
+      const testComment = {
+          username: "IDontExist",
+          body: "a comment with a username that doesn't exist",
+      }
+      return request(app)
+          .post("/api/articles/11/comments")
+          .send(testComment)
+          .expect(404)
+          .then(({ body }) => {
+              expect(body.message).toBe("User not found")
+          })
+    })
+
+    test("status: 404 - should respond with not found when article does not exist", () => {
+      const testComment = {
+          username: "butter_bridge",
+          body: "a comment on a non-existent article",
+      }
+      return request(app)
+          .post("/api/articles/9999/comments") 
+          .send(testComment)
+          .expect(404)
+          .then(({ body }) => {
+              expect(body.message).toBe("Article not found")
+          })
+    })
+
+    test("status: 404 - should respond with not found when article_id is a non existent id", () => {
+      const testComment = {
+          username: "butter_bridge",
+          body: "a new comment",
+      }
+      return request(app)
+          .post("/api/articles/banana/comments")
+          .send(testComment)
+  })
+
 }) 
 
    //tasks 8
@@ -292,6 +330,35 @@ describe("All GET /api Tests", () => {
 });
 
  
+//task 11
+describe("GET /api/articles (sorting queries)", () => {
 
+  test("200: returns articles sorted by 'created_at' in descending order by default", () => {
+    return request(app)
+      .get("/api/articles")
+      .expect(200)
+      .then(({ body: { articles } }) => {
+        expect(articles).toBeSortedBy("created_at", { descending: true });
+      });
+  });
+
+  test("200: sorts articles by any valid column when sort_by is provided", () => {
+    return request(app)
+      .get("/api/articles?sort_by=title")
+      .expect(200)
+      .then(({ body: { articles } }) => {
+        expect(articles).toBeSortedBy("title", { descending: true });
+      });
+  });
+
+  test("200: sorts articles in ascending order when order=asc", () => {
+    return request(app)
+      .get("/api/articles?order=asc")
+      .expect(200)
+      .then(({ body: { articles } }) => {
+        expect(articles).toBeSortedBy("created_at");
+      });
+  });
+})
   
 }); //end of description

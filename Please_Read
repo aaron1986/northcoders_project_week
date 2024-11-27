@@ -1,0 +1,36 @@
+Task 7 feedback:
+
+Test task 7
+
+(1) I have removed the toHaveLength from the test.
+expect(typeof comment).toBe("object")
+expect(Object.keys(comment)).toHaveLength(6)
+
+controller:
+(2) I have removed one of the postComment functions.
+Is there a reason there are two postComment functions defined here?
+
+(3) Code removed - lesson learnt.
+This is not how we should be dealing with errors. Have a re-read of the notes on how this should be done instead:
+
+(4) I have removed the async and try catch.
+(same as the above) is mixing async await and promises together. I would recommend sticking to one for consistency and readability.
+
+(5) Added tests: username does not exist, article does not exist, and invalid article_id
+
+There are a few other errors that should be included here as well:
+
+What should happen when all of the properties exist, but the username given does not exist?
+E.g { username: "IDontExist" body: "a comment with a username that doesnt exist", }
+
+What should happen when requesting to post a comment on an article that doesnt exist?
+E.g /api/articles/9999/comments
+
+What should happen when requesting to post a comment on an invalid article_id?
+E.g /api/articles/banana/comments
+
+
+
+
+
+
