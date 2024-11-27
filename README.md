@@ -38,10 +38,11 @@ Task 11 tests
 (2) added code 'example 1' to package.json
 
 example 1:
-"jest": {
+ "jest": {
     "setupFilesAfterEnv": [
+      "jest-extended/all",
       "jest-sorted"
-    ]
+    ] 
   }
 
   
