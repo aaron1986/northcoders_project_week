@@ -33,6 +33,19 @@ Created new test and error if endpoint not found in app.js
 (1) wrote app.get("/test") to check if endpoint working
 (2) I wrote app.all("*", (req, res)) to run error if endpoint not found
 
+Task 11 tests
+(1) installed npm install --save-dev jest-sorted
+(2) added code 'example 1' to package.json
+
+example 1:
+"jest": {
+    "setupFilesAfterEnv": [
+      "jest-sorted"
+    ]
+  }
+
+  
+
 Tests
 (1) CORE: GET /api test complete
 

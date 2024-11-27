@@ -41,11 +41,17 @@ exports.getTopics = async (req, res) => {
   };
 
   exports.getArticles = async (req, res, next) => {
+    const { sort_by, order } = req.query;
+  
     try {
-      const articles = await selectAllArticles();
+      const articles = await selectAllArticles({ sort_by, order });
       res.status(200).send({ articles });
     } catch (err) {
-      next(err);
+      if (err.status) {
+        res.status(err.status).send({ msg: err.msg });
+      } else {
+        next(err);
+      }
     }
   };
 
@@ -63,47 +69,33 @@ exports.getTopics = async (req, res) => {
     }
   };
 
+  exports.postComment = (req, res, next) => {
+    const { article_id } = req.params;
+    const { username, body } = req.body;
 
-  exports.postComment = async (req, res, next) => {
-    try {
-      const { article_id } = req.params
-      const { username, body } = req.body
-      insertCommentByArticleId(article_id, username, body)
-          .then((comment) => {
-              res.status(201).send({ comment })
-          })
-          .catch((err) => {
-              next(err)
-          })
-    } catch (err) {
-        if (err.code === "23503") {
-            res.status(404).send({ msg: "User not found" });
-        } else if (err.code === "22P02") {
-            res.status(400).send({ msg: "Invalid article_id format" });
-        } else {
-            next(err);
-        }
-    }
-};
-
-  exports.postComment = async (req, res, next) => {
-   try {
-    const { article_id } = req.params
-    const { username, body } = req.body
     if (!username) {
-      return res.status(400).send({ message: "Username is required" });
-  }
-    insertCommentByArticleId(article_id, username, body)
-        .then((comment) => {
-            res.status(201).send({ comment })
-        })
-        .catch((err) => {
-            next(err)
-        })
-   } catch(err) {
-    console.log(err)
-   }
+        return res.status(400).send({ message: "Username is required" });
+    }
+    selectArticleById(article_id).then((article) => {
+        if (!article) {
+            return res.status(404).send({ message: "Article not found" });
+        }
+        selectAllUsers().then(users => {
+            const userExists = users.some(user => user.username === username);
+            if (!userExists) {
+                return res.status(404).send({ message: "User not found" });
+            }
+            insertCommentByArticleId(article_id, username, body)
+                .then((comment) => {
+                    res.status(201).send({ comment });
+                })
+                .catch((err) => {
+                    next(err);
+                });
+        }).catch(next); 
+    }).catch(next); 
 };
+
 
 exports.patchArticle = async (req, res, next) => {
   try {
