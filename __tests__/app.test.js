@@ -394,5 +394,38 @@ describe("GET /api/articles (with topic query)", () => {
       });
   });
 });
+
+//task 13
+describe("GET /api/articles/:article_id (comment_count)", () => {
+  test("200: Responds with the article including comment_count", () => {
+    return request(app)
+      .get("/api/articles/1")
+      .expect(200)
+      .then(({ body: { article } }) => {
+        expect(article).toEqual(
+          expect.objectContaining({
+            author: expect.any(String),
+            title: expect.any(String),
+            article_id: 1,
+            body: expect.any(String),
+            topic: expect.any(String),
+            created_at: expect.any(String),
+            votes: expect.any(Number),
+            article_img_url: expect.any(String),
+            comment_count: expect.any(Number), 
+          })
+        );
+      });
+  });
+  
+  test("404: Responds with 'Article not found' for non-existent article_id", () => {
+    return request(app)
+      .get("/api/articles/9999") 
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("Article not found");
+      });
+  });
+})
   
 }); //end of description
