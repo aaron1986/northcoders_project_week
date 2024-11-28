@@ -45,6 +45,17 @@ example 1:
     ] 
   }
 
+  Task 14
+  (1) I created the database instance using Supabase.
+  (2) I created a new .env. file for the production environment variable.
+  (3) I updated the connection pool.
+  (4) I updated the package.json file with "main": "listen.js".
+  (5) I seeded the online database.
+  (6) I uploaded the site using Render.
+  (7) I forgot to add /api to the url and felt like a fool!
+
+
+
   
 
 Tests
