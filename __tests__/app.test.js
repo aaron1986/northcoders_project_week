@@ -324,7 +324,7 @@ describe("All GET /api Tests", () => {
 
   test("responds with a 404 if the endpoint does not exist", async () => {
     const response = await request(app).get("/nonexistent-endpoint").expect(404);
-    expect(response.body.msg).toBe("Endpoint not found");
+    expect(response.body.msg).toBe("Endpoint not found here!");
   });
 
 });

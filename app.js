@@ -44,7 +44,7 @@ app.get("/test", async (req, res) => {
 
 //throw error if endpoint not found
 app.all("*", (req, res) => {
-    res.status(404).send({ msg: "Endpoint not found" });
+    res.status(404).send({ msg: "Endpoint not found here!" });
   });
 
 //*******************************
