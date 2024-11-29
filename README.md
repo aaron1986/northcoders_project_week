@@ -50,22 +50,7 @@ Created listen.js file to view endpoints in POSTMAN
 <h2><strong>Task 11 tests</h2></strong>
 (1) installed npm install --save-dev jest-sorted
 </br>
-(2) added code 'example 1' to package.json
-
-  
-
-<h2><strong>Tests</h2></strong>
-(1) CORE: GET /api test complete
-</br>
-(2) GET /api/topics test completed
-</br>
-(3) /api/articles/:article_id completed
-</br>
-(4) /api/articles completed
-</br>
-(5) /api/articles/:article_id/comments completed
-</br>
-(6) POST /api/articles/:article_id/comments completed
+(2) added code to package.json
 
 
 
