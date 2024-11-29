@@ -70,13 +70,17 @@ This portfolio project was created as part of a Digital Skills Bootcamp in Softw
   </br></br>
 
  <h2><strong>Task 16</h2></strong>
- I create a new router folder and assigned the variable 'apiRouter'.
+ (1) I create a new router folder and assigned the variable 'apiRouter'.
 </br>
- I assigned the endpoint "/api" to the vaiable apiRouter.
+ (2) I assigned the endpoint "/api" to the variable apiRouter.
 </br>
- In the new api-router file, I imported the necessary router modules, including topics, articles, and users. I also initialized the router by invoking the express.Router() method. Finally, I configured each route by adding code such as apiRouter.use("/topics", topicsRouter).
+ (3) In the new api-router file, I imported the necessary router modules, including topics, articles, and users. I also initialized the router by invoking the express.Router() method. Finally, I configured each route by adding code such as apiRouter.use("/topics", topicsRouter).
 </br>
- I created two import functions, getUsers and getUsername, from a controller file. I then created a Router using express.Router(). The code usersRouter.get("/") handles GET requests to the base /users route (e.g., example.com/users). It uses the getUsers function to respond. Finally, the router is exported so it can be used in other parts of the application.
+ (4) I created two import functions, getUsers and getUsername, from a controller file. I then created a Router using express.Router(). The code usersRouter.get("/") handles GET requests to the base /users route (e.g., example.com/users). It uses the getUsers function to respond. 
+</br>
+ (5) Finally, the router is exported so it can be used in other parts of the application.
+</br>
+ (6) I updated bthe app.js to invoke the express express.Router() method using app.use()
 </br>
 </br>
 Test note:
