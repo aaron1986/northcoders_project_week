@@ -23,7 +23,7 @@ This portfolio project was created as part of a Digital Skills Bootcamp in Softw
 <br>
 
 
-create and seed database
+<strong><h2>create and seed database</h2></strong>
 <br>
 (1) type 'sudo service postgresql start' in the terminal
 <br>
@@ -46,28 +46,30 @@ Created listen.js file to view endpoints in POSTMAN
 </br>
 
 <strong><h2>Created new test and error if endpoint not found in app.js</h2></strong>
-(1) wrote app.get("/test") to check if endpoint working<
+</br>
+(1) wrote app.get("/test") to check if endpoint working
+</br>
 (2) I wrote app.all("*", (req, res)) to run error if endpoint not found
 
-Task 11 tests
+<strong><h2>Task 11 tests</h2></strong>
 (1) installed npm install --save-dev jest-sorted
-(2) added code 'example 1' to package.json
+</br>
+(2) added code to package.json
 
-example 1:
- "jest": {
-    "setupFilesAfterEnv": [
-      "jest-extended/all",
-      "jest-sorted"
-    ] 
-  }
 
-  Task 14
+  <strong><h2>Task 14</h2></strong>
   (1) I created the database instance using Supabase.
+  </br>
   (2) I created a new .env. file for the production environment variable.
+  </br>
   (3) I updated the connection pool.
+  </br>
   (4) I updated the package.json file with "main": "listen.js".
+  </br>
   (5) I seeded the online database.
+  </br>
   (6) I uploaded the site using Render.
+  </br>
   (7) I forgot to add /api to the url and felt like a fool!
 
 
