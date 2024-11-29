@@ -8,12 +8,13 @@ const {
     updateArticleById,
     deleteCommentsById,
     selectAllUsers,
+    selectUserByUsername,
   
   } = require('../model/topics.model')
 
 exports.getApi = (req, res) => {
     res.status(200).send({ endpoints: endpointsJson }); 
-};
+}
 
 exports.getTopics = async (req, res) => {
     try {
@@ -24,21 +25,18 @@ exports.getTopics = async (req, res) => {
     }
 }
 
-  exports.getArticleById = async (req, res, next) => {
-    try {
-      const { article_id } = req.params; 
-      selectArticleById(article_id) 
-        .then((article) => {
-          if (!article) {
-            res.status(404).send({ msg: "Article not found" });
-          }
-          res.status(200).send({ article }); 
-        })
-        .catch(next); 
-    } catch (err) {
-      next(err);
+exports.getArticleById = async (req, res, next) => {
+  try {
+    const { article_id } = req.params;
+    const article = await selectArticleById(article_id);
+    if (!article) {
+      return res.status(404).send({ msg: "Article not found" }); 
     }
-  };
+    res.status(200).send({ article });
+  } catch (err) {
+    next(err);
+  }
+};
 
   exports.getArticles = async (req, res, next) => {
     const { sort_by, order, topic } = req.query;
@@ -60,7 +58,7 @@ exports.getTopics = async (req, res) => {
     try {
       const { article_id } = req.params;
       const comments = await selectComments(article_id);
-      if (comments.length === 0) {
+      if (!comments || comments.length === 0) {
         return res.status(404).send({ msg: "No comments found for this article" });
       }
       res.status(200).send({ comments });
@@ -68,33 +66,35 @@ exports.getTopics = async (req, res) => {
       next(err);
     }
   };
+  
 
-  exports.postComment = (req, res, next) => {
-    const { article_id } = req.params;
-    const { username, body } = req.body;
-
-    if (!username) {
+  exports.postComment = async (req, res, next) => {
+    try {
+      const { article_id } = req.params;
+      const { username, body } = req.body;
+  
+      if (!username) {
         return res.status(400).send({ message: "Username is required" });
+      }
+  
+      const article = await selectArticleById(article_id);
+      if (!article) {
+        return res.status(404).send({ message: "Article not found" });
+      }
+  
+      const users = await selectAllUsers();
+      const userExists = users.some((user) => user.username === username);
+      if (!userExists) {
+        return res.status(404).send({ message: "User not found" });
+      }
+  
+      const comment = await insertCommentByArticleId(article_id, username, body);
+      res.status(201).send({ comment });
+    } catch (err) {
+      next(err);
     }
-    selectArticleById(article_id).then((article) => {
-        if (!article) {
-            return res.status(404).send({ message: "Article not found" });
-        }
-        selectAllUsers().then(users => {
-            const userExists = users.some(user => user.username === username);
-            if (!userExists) {
-                return res.status(404).send({ message: "User not found" });
-            }
-            insertCommentByArticleId(article_id, username, body)
-                .then((comment) => {
-                    res.status(201).send({ comment });
-                })
-                .catch((err) => {
-                    next(err);
-                });
-        }).catch(next); 
-    }).catch(next); 
-};
+  };
+  
 
 
 exports.patchArticle = async (req, res, next) => {
@@ -142,6 +142,16 @@ exports.getUsers = async (req, res, next) => {
       return res.status(404).send({ msg: "No users found" });
     }
     res.status(200).send({ users });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.getUsername = async (req, res, next) => {
+  try {
+    const { username } = req.params;
+    const user = await selectUserByUsername(username);
+    res.status(200).send({ user });
   } catch (err) {
     next(err);
   }
