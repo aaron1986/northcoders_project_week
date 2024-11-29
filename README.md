@@ -10,27 +10,45 @@ This portfolio project was created as part of a Digital Skills Bootcamp in Softw
 
 
 (1) Added the .env.test and .env.development files.
+/
+/
 (2) npm install and npm install express.
+/
+/
 (3) created the controller and model files.
-(4) created the correct .env.development and .env.test files with PGDATABASE=databaseName
+<br>
+(4) created the correct .env.development and .env.test files with PGDATABASE=databaseName.
+<br>
 (5) installed superjest.
+<br>
 (6) wrote test to read/output the json data.
+<br>
 
 
 create and seed database
+<br>
 (1) type 'sudo service postgresql start' in the terminal
+<br>
 (2) type 'npm run setup-dbs' in the terminal to create the database
+<br>
 (3) type 'npm run seed' in the terminal to insert values into the tables
+<br>
 
 Created listen.js file to view endpoints in POSTMAN
+</br>
 (1) listen.js and added code to view endpoints on port 9000
+</br>
 (2) added "start": "node listen.js" to scripts in the package.json file 
+</br>
 (3) npm install npm install supertest --save-dev
+</br>
 (4) run 'npm start'
+</br>
 (5) http://localhost:9000/
+</br>
 
 Created new test and error if endpoint not found in app.js
-(1) wrote app.get("/test") to check if endpoint working
+<p>(1) wrote app.get("/test") to check if endpoint working</p>
 (2) I wrote app.all("*", (req, res)) to run error if endpoint not found
 
 Task 11 tests
