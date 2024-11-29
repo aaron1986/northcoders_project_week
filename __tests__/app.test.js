@@ -427,5 +427,40 @@ describe("GET /api/articles/:article_id (comment_count)", () => {
       });
   });
 })
+
+//task 17
+describe("GET /api/users/:username", () => {
+  test("test for properties in the user object", () => {
+    return request(app)
+    .get("/api/users/rogersop")
+    .expect(200)
+    .then(({body}) => {
+      expect(body.user).toEqual(
+        expect.objectContaining({
+          username: "rogersop",
+          avatar_url: expect.any(String),
+          name: expect.any(String),
+        })
+      )
+    })
+  })
+  test("responds with 404 for a non-existent user", () => {
+    return request(app)
+      .get("/api/users/nonexistentuser")
+      .expect(404)
+      .then(({ body }) => {
+        expect(body.msg).toBe("not found");
+      });
+  });
+
+  test("responds with 400 for an invalid username", () => {
+    return request(app)
+      .get("/api/users/12345") 
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.msg).toBe("bad request");
+      });
+  });
+})
   
 }); //end of description
