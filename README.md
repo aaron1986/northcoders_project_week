@@ -15,12 +15,12 @@ This portfolio project was created as part of a Digital Skills Bootcamp in Softw
 </br>
 (3) created the controller and model files.
 </br>
-(4) created the correct .env.development and .env.test files with PGDATABASE=databaseName
+(4) created the correct .env.development and .env.test files with PGDATABASE=databaseName.
 </br>
 (5) installed superjest.
 </br>
 (6) wrote test to read/output the json data.
-
+</br>
 
 <h2><strong>create and seed database</h2></strong>
 (1) type 'sudo service postgresql start' in the terminal
@@ -28,8 +28,9 @@ This portfolio project was created as part of a Digital Skills Bootcamp in Softw
 (2) type 'npm run setup-dbs' in the terminal to create the database
 </br>
 (3) type 'npm run seed' in the terminal to insert values into the tables
+</br>
 
-Created listen.js file to view endpoints in POSTMAN
+<h2><strong>Created listen.js file to view endpoints in POSTMAN</h2></strong>
 </br>
 (1) listen.js and added code to view endpoints on port 9000
 </br>
@@ -40,7 +41,7 @@ Created listen.js file to view endpoints in POSTMAN
 (4) run 'npm start'
 </br>
 (5) http://localhost:9000/
-
+</br>
 
 <h2><strong>Created new test and error if endpoint not found in app.js</h2></strong>
 (1) wrote app.get("/test") to check if endpoint working
@@ -52,7 +53,21 @@ Created listen.js file to view endpoints in POSTMAN
 </br>
 (2) added code to package.json
 
-
+  <h2><strong>Task 14</h2></strong>
+  (1) I created the database instance using Supabase.
+  </br>
+  (2) I created a new .env. file for the production environment variable.
+  </br>
+  (3) I updated the connection pool.
+  </br>
+  (4) I updated the package.json file with "main": "listen.js".
+  </br>
+  (5) I seeded the online database.
+  </br>
+  (6) I uploaded the site using Render.
+  </br>
+  (7) I forgot to add /api to the url and felt like a fool!
+  </br></br>
 
 Test note:
           /*
