@@ -10,11 +10,9 @@ This portfolio project was created as part of a Digital Skills Bootcamp in Softw
 
 
 (1) Added the .env.test and .env.development files.
-/
-/
+<br>
 (2) npm install and npm install express.
-/
-/
+<br>
 (3) created the controller and model files.
 <br>
 (4) created the correct .env.development and .env.test files with PGDATABASE=databaseName.
@@ -47,8 +45,8 @@ Created listen.js file to view endpoints in POSTMAN
 (5) http://localhost:9000/
 </br>
 
-Created new test and error if endpoint not found in app.js
-<p>(1) wrote app.get("/test") to check if endpoint working</p>
+<strong><h2>Created new test and error if endpoint not found in app.js</h2></strong>
+(1) wrote app.get("/test") to check if endpoint working<
 (2) I wrote app.all("*", (req, res)) to run error if endpoint not found
 
 Task 11 tests
