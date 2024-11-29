@@ -69,6 +69,16 @@ This portfolio project was created as part of a Digital Skills Bootcamp in Softw
   (7) I forgot to add /api to the url and felt like a fool!
   </br></br>
 
+ <h2><strong>Task 16</h2></strong>
+ I create a new router folder and assigned the variable 'apiRouter'.
+</br>
+ I assigned the endpoint "/api" to the vaiable apiRouter.
+</br>
+ In the new api-router file, I imported the necessary router modules, including topics, articles, and users. I also initialized the router by invoking the express.Router() method. Finally, I configured each route by adding code such as apiRouter.use("/topics", topicsRouter).
+</br>
+ I created two import functions, getUsers and getUsername, from a controller file. I then created a Router using express.Router(). The code usersRouter.get("/") handles GET requests to the base /users route (e.g., example.com/users). It uses the getUsers function to respond. Finally, the router is exported so it can be used in other parts of the application.
+</br>
+</br>
 Test note:
           /*
           This is a note for me to remember how to use this in the future!
