@@ -90,9 +90,9 @@ This portfolio project was created as part of a Digital Skills Bootcamp in Softw
 </br>
 
 <h2><strong>Test note:</h2></strong>
-          /*
           This is a note for me to remember how to use this in the future!
-          
+          </br>
+          /*
           The new date converts the 'created at' string into a date object, additionally, the .getTime() 
           method converts the date object into a numeric timestamp. 
 
