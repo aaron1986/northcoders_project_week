@@ -67,23 +67,7 @@ This portfolio project was created as part of a Digital Skills Bootcamp in Softw
   (6) I uploaded the site using Render.
   </br>
   (7) I forgot to add /api to the url and felt like a fool!
-
-  
-
-<h2><strong>Tests</h2></strong>
-(1) CORE: GET /api test complete
-</br>
-(2) GET /api/topics test completed
-</br>
-(3) /api/articles/:article_id completed
-</br>
-(4) /api/articles completed
-</br>
-(5) /api/articles/:article_id/comments completed
-</br>
-(6) POST /api/articles/:article_id/comments completed
-
-
+  </br></br>
 
 Test note:
           /*
