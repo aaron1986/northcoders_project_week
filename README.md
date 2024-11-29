@@ -8,33 +8,29 @@ For instructions, please head over to [L2C NC News](https://l2c.northcoders.com/
 
 This portfolio project was created as part of a Digital Skills Bootcamp in Software Engineering provided by [Northcoders](https://northcoders.com/)
 
-
+<h2><strong>Setup files</h2></strong>
 (1) Added the .env.test and .env.development files.
-/
-/
+</br>
 (2) npm install and npm install express.
-/
-/
+</br>
 (3) created the controller and model files.
-<br>
+</br>
 (4) created the correct .env.development and .env.test files with PGDATABASE=databaseName.
-<br>
+</br>
 (5) installed superjest.
-<br>
+</br>
 (6) wrote test to read/output the json data.
-<br>
+</br>
 
-
-create and seed database
-<br>
+<h2><strong>create and seed database</h2></strong>
 (1) type 'sudo service postgresql start' in the terminal
-<br>
+</br>
 (2) type 'npm run setup-dbs' in the terminal to create the database
-<br>
+</br>
 (3) type 'npm run seed' in the terminal to insert values into the tables
-<br>
+</br>
 
-Created listen.js file to view endpoints in POSTMAN
+<h2><strong>Created listen.js file to view endpoints in POSTMAN</h2></strong>
 </br>
 (1) listen.js and added code to view endpoints on port 9000
 </br>
@@ -47,46 +43,44 @@ Created listen.js file to view endpoints in POSTMAN
 (5) http://localhost:9000/
 </br>
 
-Created new test and error if endpoint not found in app.js
-<p>(1) wrote app.get("/test") to check if endpoint working</p>
+<h2><strong>Created new test and error if endpoint not found in app.js</h2></strong>
+(1) wrote app.get("/test") to check if endpoint working
+</br>
 (2) I wrote app.all("*", (req, res)) to run error if endpoint not found
 
-Task 11 tests
+<h2><strong>Task 11 tests</h2></strong>
 (1) installed npm install --save-dev jest-sorted
-(2) added code 'example 1' to package.json
+</br>
+(2) added code to package.json
 
-example 1:
- "jest": {
-    "setupFilesAfterEnv": [
-      "jest-extended/all",
-      "jest-sorted"
-    ] 
-  }
-
-  Task 14
+  <h2><strong>Task 14</h2></strong>
   (1) I created the database instance using Supabase.
+  </br>
   (2) I created a new .env. file for the production environment variable.
+  </br>
   (3) I updated the connection pool.
+  </br>
   (4) I updated the package.json file with "main": "listen.js".
+  </br>
   (5) I seeded the online database.
+  </br>
   (6) I uploaded the site using Render.
+  </br>
   (7) I forgot to add /api to the url and felt like a fool!
-
-
 
   
 
-Tests
+<h2><strong>Tests</h2></strong>
 (1) CORE: GET /api test complete
-
+</br>
 (2) GET /api/topics test completed
-
+</br>
 (3) /api/articles/:article_id completed
-
+</br>
 (4) /api/articles completed
-
+</br>
 (5) /api/articles/:article_id/comments completed
-
+</br>
 (6) POST /api/articles/:article_id/comments completed
 
 
