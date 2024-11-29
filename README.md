@@ -88,7 +88,8 @@ This portfolio project was created as part of a Digital Skills Bootcamp in Softw
  (6) I updated bthe app.js to invoke the express express.Router() method using app.use()
 </br>
 </br>
-Test note:
+
+<h2><strong>Test note:</h2></strong>
           /*
           This is a note for me to remember how to use this in the future!
           
