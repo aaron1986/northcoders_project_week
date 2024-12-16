@@ -4,6 +4,8 @@ const app = express();
 app.use(express.json());
 
 app.use("/api", apiRouter);
+const cors = require('cors');
+app.use(cors());
 
 //example for postman
 app.get("/test", async (req, res) => {
